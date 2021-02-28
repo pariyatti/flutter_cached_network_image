@@ -21,6 +21,7 @@ class CachedNetworkImageProvider
     this.maxHeight,
     this.maxWidth,
     this.scale = 1.0,
+    this.onLoad,
     this.errorListener,
     this.headers,
     this.cacheManager,
@@ -40,6 +41,11 @@ class CachedNetworkImageProvider
   /// Cache key of the image to cache
   @override
   final String cacheKey;
+
+  @override
+
+  ///Callback to inform the image is loaded
+  final ValueChanged<bool> onLoad;
 
   /// Scale of the image
   @override
@@ -118,6 +124,9 @@ class CachedNetworkImageProvider
           var file = result.file;
           var bytes = await file.readAsBytes();
           var decoded = await decode(bytes);
+          if (onLoad != null) {
+            onLoad(true);
+          }
           yield decoded;
         }
       }
