@@ -25,6 +25,7 @@ class CachedNetworkImageProvider
     this.errorListener,
     this.headers,
     this.cacheManager,
+    this.onLoad,
     this.cacheKey,
     ImageRenderMethodForWeb imageRenderMethodForWeb,
   })  : _imageRenderMethodForWeb =
@@ -43,6 +44,9 @@ class CachedNetworkImageProvider
 
   @override
   final double scale;
+
+  @override
+  final ValueChanged<bool> onLoad;
 
   /// Listener to be called when images fails to load.
   @override
@@ -129,6 +133,9 @@ class CachedNetworkImageProvider
           var file = result.file;
           var bytes = await file.readAsBytes();
           var decoded = await decode(bytes);
+          if (onLoad != null) {
+            onLoad(true);
+          }
           yield decoded;
         }
       }
