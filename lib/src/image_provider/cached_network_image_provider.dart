@@ -44,6 +44,7 @@ abstract class CachedNetworkImageProvider
     int maxWidth,
     String cacheKey,
     double scale,
+    ValueChanged<bool> onLoad,
     @Deprecated('ErrorListener is deprecated, use listeners on the imagestream')
         ErrorListener errorListener,
     Map<String, String> headers,
@@ -64,6 +65,9 @@ abstract class CachedNetworkImageProvider
 
   /// The URL from which the image will be fetched.
   String get url;
+
+  ///Callback to inform the image is loaded
+  ValueChanged<bool> get onLoad;
 
   /// The Key from image for cache
   String get cacheKey;

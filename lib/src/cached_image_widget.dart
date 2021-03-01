@@ -55,6 +55,9 @@ class CachedNetworkImage extends StatelessWidget {
 
   final CachedNetworkImageProvider _image;
 
+  ///Callback to inform the image is loaded
+  final ValueChanged<bool> onLoad;
+
   /// Option to use cachemanager with other settings
   final BaseCacheManager cacheManager;
 
@@ -202,6 +205,7 @@ class CachedNetworkImage extends StatelessWidget {
     Key key,
     @required this.imageUrl,
     this.httpHeaders,
+    this.onLoad,
     this.imageBuilder,
     this.placeholder,
     this.progressIndicatorBuilder,
@@ -245,6 +249,7 @@ class CachedNetworkImage extends StatelessWidget {
           imageRenderMethodForWeb: imageRenderMethodForWeb,
           maxWidth: maxWidthDiskCache,
           maxHeight: maxHeightDiskCache,
+          onLoad: onLoad,
         ),
         super(key: key);
 
@@ -262,7 +267,6 @@ class CachedNetworkImage extends StatelessWidget {
         octoProgressIndicatorBuilder == null) {
       octoPlaceholderBuilder = (context) => Container();
     }
-
     return OctoImage(
       image: _image,
       imageBuilder: imageBuilder != null ? _octoImageBuilder : null,

@@ -20,6 +20,7 @@ class MultiImageStreamCompleter extends ImageStreamCompleter {
     @required double scale,
     Stream<ImageChunkEvent> chunkEvents,
     InformationCollector informationCollector,
+    ValueChanged<bool> onLoad,
   })  : assert(codec != null),
         _informationCollector = informationCollector,
         _scale = scale {
